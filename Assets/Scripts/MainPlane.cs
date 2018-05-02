@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainPlane : MonoBehaviour {
+public class MainPlane : MonoBehaviour
+{
     [SerializeField]
     private float speed = 1f;
 
@@ -10,11 +11,18 @@ public class MainPlane : MonoBehaviour {
 
     private Vector3 direction;
     private float v;
+    private Weapon weapon;
+
 
     private float MaxX;
     private float MinX;
     private float MaxY;
     private float MinY;
+
+    private void Awake()
+    {
+        weapon = GetComponent<Weapon>();
+    }
 
     private void Start()
     {
@@ -25,9 +33,9 @@ public class MainPlane : MonoBehaviour {
     }
 
 
-    void Update () {
+    void Update()
+    {
         direction = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
 
         Move(direction);
 
@@ -35,13 +43,24 @@ public class MainPlane : MonoBehaviour {
     }
 
 
-    private void Move(Vector3 direction) {
+    private void Move(Vector3 direction)
+    {
         transform.position += direction * speed * Time.deltaTime;
     }
 
-    private void ClampFrame() {
+    private void ClampFrame()
+    {
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, MinX, MaxX),
                                      Mathf.Clamp(transform.position.y, MinY, MaxY),
                                      transform.position.z);
+    }
+
+    public void FireOnce()
+    {
+        weapon.FireOnce();
+    }
+    public void FireStart()
+    {
+        weapon.FireStart();
     }
 }
