@@ -7,16 +7,19 @@ public class MainPlane : MonoBehaviour,IHealth
 {
     [SerializeField]
     private float speed = 1f;
-    private int hp = 100;
+    [SerializeField]
+    protected GameObject explosionFX;
+
     private Vector3 direction;
     private float v;
     private Weapon weapon;
+    private int health = 100;
 
     private float MaxX;
     private float MinX;
     private float MaxY;
     private float MinY;
-    private int health;
+    
 
     public int Health
     {
@@ -88,8 +91,19 @@ public class MainPlane : MonoBehaviour,IHealth
 
     public void Damage(int _value)
     {
-        if (health > 0) {
-            health -= _value;
+        if (health <= 0) return;
+        health -= _value;
+
+        if (health <= 0)
+        {
+            DestroySelf();
         }
+    }
+
+
+    private void DestroySelf()
+    {
+        Instantiate(explosionFX, this.transform.position, explosionFX.transform.rotation);
+        Destroy(this.gameObject);
     }
 }
