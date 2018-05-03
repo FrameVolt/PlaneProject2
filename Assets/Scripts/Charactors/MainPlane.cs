@@ -1,23 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainPlane : MonoBehaviour
+public class MainPlane : MonoBehaviour,IHealth
 {
     [SerializeField]
     private float speed = 1f;
-
     private int hp = 100;
-
     private Vector3 direction;
     private float v;
     private Weapon weapon;
-
 
     private float MaxX;
     private float MinX;
     private float MaxY;
     private float MinY;
+    private int health;
+
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (InputManager.Instance)
+        {
+            InputManager.Instance.OnSpace += FireStart;
+            InputManager.Instance.OnSpaceDown += FireOnce;
+            InputManager.Instance.OnMovement += Move;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (InputManager.Instance)
+        {
+            InputManager.Instance.OnSpace -= FireStart;
+            InputManager.Instance.OnSpaceDown -= FireOnce;
+            InputManager.Instance.OnMovement -= Move;
+        }
+    }
 
     private void Awake()
     {
@@ -33,15 +60,10 @@ public class MainPlane : MonoBehaviour
     }
 
 
-    void Update()
+    private void Update()
     {
-        direction = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        Move(direction);
-
         ClampFrame();
     }
-
 
     private void Move(Vector3 direction)
     {
@@ -55,12 +77,19 @@ public class MainPlane : MonoBehaviour
                                      transform.position.z);
     }
 
-    public void FireOnce()
+    private void FireOnce()
     {
         weapon.FireOnce();
     }
-    public void FireStart()
+    private void FireStart()
     {
         weapon.FireStart();
+    }
+
+    public void Damage(int _value)
+    {
+        if (health > 0) {
+            health -= _value;
+        }
     }
 }
