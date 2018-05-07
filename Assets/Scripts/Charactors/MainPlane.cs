@@ -96,6 +96,7 @@ public class MainPlane : MonoBehaviour,IHealth
 
         if (health <= 0)
         {
+            if(AppConst.IsDebugMode == false)
             DestroySelf();
         }
     }
@@ -105,5 +106,7 @@ public class MainPlane : MonoBehaviour,IHealth
     {
         Instantiate(explosionFX, this.transform.position, explosionFX.transform.rotation);
         Destroy(this.gameObject);
+        Director.Instance.PlayerDead();
+
     }
 }

@@ -7,6 +7,9 @@ public class ScoreDisplay : MonoBehaviour {
     [SerializeField]
     private Text scoreText;
 
+    [SerializeField]
+    private GameObject[] lifeIcons;
+
     private Director director;
 
 	void Start () {
@@ -17,5 +20,12 @@ public class ScoreDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         scoreText.text = director.Score.ToString();
-	}
+        for (int i = 0; i < lifeIcons.Length; i++)
+        {
+            lifeIcons[i].SetActive(i < director.PlayerLifeCount);
+        }
+        
+
+
+    }
 }
