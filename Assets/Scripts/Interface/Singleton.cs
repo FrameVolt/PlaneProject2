@@ -24,9 +24,9 @@ public class Singleton<T> : MonoBehaviour where T : Component
                     if (instance == null)
                     {
                         Debug.LogWarning("there is no " + typeof(T).ToString() + "in the scene.");
-                    GameObject obj = new GameObject();
-                    instance = obj.AddComponent<T>();
-                }
+                    //GameObject obj = new GameObject();
+                    //instance = obj.AddComponent<T>();
+                    }
                 //}
             }
             return instance;

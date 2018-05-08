@@ -7,9 +7,15 @@ public class InputManager : Singleton<InputManager> {
     public event Action OnSpaceDown;
     public event Action OnSpace;
     public event Action<Vector3> OnMovement;
+    public event Action OnEsc;
 
     private void Update()
     {
+
+        if (Input.GetButtonDown("Esc")) {
+            Esc();
+        }
+
         if (Input.GetButtonDown("Jump")) {
             if(OnSpaceDown != null)
             OnSpaceDown.Invoke();
@@ -24,6 +30,12 @@ public class InputManager : Singleton<InputManager> {
             OnMovement.Invoke(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0));
         }
 
+    }
+
+
+    public void Esc() {
+        if (OnEsc != null)
+            OnEsc.Invoke();
     }
 
 }
