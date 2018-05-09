@@ -52,11 +52,13 @@ public class PauseMenu : MonoBehaviour {
     }
 
     public void Pause() {
+        GameManager.Instance.Pause();
         canvasGroupStack.Push(pauseGroup);
         DisplayMenu();
     }
 
     public void UnPause() {
+        GameManager.Instance.Pause();
         if (canvasGroupStack.Count > 0) {
             canvasGroupStack.Pop();
         }

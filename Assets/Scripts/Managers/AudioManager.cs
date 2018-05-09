@@ -2,18 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-public class AudioManager : MonoBehaviour {
+public class AudioManager : Singleton<AudioManager> {
     [SerializeField]
     private AudioMixer auidoMixer;
 
 
-	void Start () {
-        auidoMixer.SetFloat("fx",-20);
+    private float musicVolume;
+    private float fxVolume;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        musicVolume = 0;
+        fxVolume = 0;
+        auidoMixer.SetFloat("music", musicVolume);
+        auidoMixer.SetFloat("fx", fxVolume);
+    }
+
+    public float MusicVolume {
+        get { return musicVolume; }
+        set {
+            musicVolume = value;
+            auidoMixer.SetFloat("music", value);
+        }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public float FXVolume
+    {
+        get { return fxVolume; }
+        set
+        {
+            fxVolume = value;
+            auidoMixer.SetFloat("fx", value);
+        }
+
+    }
 }
