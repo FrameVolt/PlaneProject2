@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager> {
+public class GameManager : PersistentSingleton<GameManager> {
 
 	public float TimeScale { get; private set; }
     private bool paused;

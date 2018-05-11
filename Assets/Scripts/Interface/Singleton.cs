@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
-    private static bool applicationIsQuitting = false;
-    private static object _lock = new object();
+    //private static bool applicationIsQuitting = false;
+    //private static object _lock = new object();
     protected static T instance;
 
     public static T Instance
     {
         get
         {
-            if (applicationIsQuitting)
-            {
-                return null;
-            }
+            //if (applicationIsQuitting)
+            //{
+            //    return null;
+            //}
             if (instance == null)
             {
                 instance = FindObjectOfType<T>();
@@ -39,8 +39,8 @@ public class Singleton<T> : MonoBehaviour where T : Component
     }
 
 
-    protected virtual void OnDestroy()
-    {
-        applicationIsQuitting = true;
-    }
+    //protected virtual void OnDestroy()
+    //{
+    //    applicationIsQuitting = true;
+    //}
 }

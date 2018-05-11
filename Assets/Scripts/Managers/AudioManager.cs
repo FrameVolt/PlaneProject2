@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-public class AudioManager : Singleton<AudioManager> {
+public class AudioManager : PersistentSingleton<AudioManager> {
     [SerializeField]
     private AudioMixer auidoMixer;
-
+    [SerializeField]
+    private GameData gameData;
 
     private float musicVolume;
     private float fxVolume;
@@ -13,8 +14,8 @@ public class AudioManager : Singleton<AudioManager> {
     protected override void Awake()
     {
         base.Awake();
-        musicVolume = 0;
-        fxVolume = 0;
+        musicVolume = gameData.musicVolume;
+        fxVolume = gameData.fxVolume;
         auidoMixer.SetFloat("music", musicVolume);
         auidoMixer.SetFloat("fx", fxVolume);
     }

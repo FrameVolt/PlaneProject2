@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour {
 
+    [SerializeField]
+    private string loadSceneName = "";
 
     [SerializeField]private CanvasGroup pauseGroup;
     [SerializeField]private CanvasGroup settingGroup;
@@ -27,6 +29,7 @@ public class PauseMenu : MonoBehaviour {
 
     private void Start()
     {
+        UIManager.Instance.FadeOn(false);
         canvasGroupList.Add(pauseGroup);
         canvasGroupList.Add(settingGroup);
         DisplayMenu();
@@ -34,7 +37,7 @@ public class PauseMenu : MonoBehaviour {
     }
 
     //use Esc return to game or parent menu
-    private void Esc() {
+    public void Esc() {
         if (canvasGroupStack.Count == 0)
         {
             Pause();
@@ -48,7 +51,7 @@ public class PauseMenu : MonoBehaviour {
             }
 
         }
-
+        DisplayMenu();
     }
 
     public void Pause() {
@@ -67,14 +70,19 @@ public class PauseMenu : MonoBehaviour {
     }
     //go to setting pannel
     public void Setting() {
-
-
+        canvasGroupStack.Push(settingGroup);
+        DisplayMenu();
     }
     //go back main menu
     public void Exit() {
-        
+        StartCoroutine(LoadGame());
     }
-
+    private IEnumerator LoadGame()
+    {
+        UIManager.Instance.FadeOn(true);
+        yield return new WaitForSecondsRealtime(1);
+        LoadSceneManager.LoadScene(loadSceneName);
+    }
 
     private void DisplayMenu() {
         foreach (var item in canvasGroupList)

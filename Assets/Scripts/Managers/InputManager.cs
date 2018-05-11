@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : Singleton<InputManager> {
+public class InputManager : PersistentSingleton<InputManager> {
     public event Action OnSpaceDown;
     public event Action OnSpace;
     public event Action<Vector3> OnMovement;
@@ -11,7 +11,7 @@ public class InputManager : Singleton<InputManager> {
 
     private void Update()
     {
-
+        
         if (Input.GetButtonDown("Esc")) {
             Esc();
         }
