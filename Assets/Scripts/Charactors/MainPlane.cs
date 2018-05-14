@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MainPlane : MonoBehaviour,IHealth
 {
+
     [SerializeField]
     private float speed = 1f;
     [SerializeField]
@@ -19,7 +20,6 @@ public class MainPlane : MonoBehaviour,IHealth
     private float MinX;
     private float MaxY;
     private float MinY;
-    
 
     public int Health
     {
